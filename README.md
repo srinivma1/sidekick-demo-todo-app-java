@@ -4,6 +4,12 @@
 Sidekick is a remote debugger tool for Java, Spring Boot Application in a non-blocking way. Log point can be attached in the ebugger using moustache expressions. Similarly, tracepoints can be attached to the code. Tracepoints act as debug breakpoint in a non-blocking way. Logpoints act as logger all without restarting the server.
 
  Install the Sidekick plugin in Intellij IDE from marketplce.
+ 
+ For more refer to the below URL:
+ 
+ ```
+ https://docs.runsidekick.com/
+ ```
 
 
 
