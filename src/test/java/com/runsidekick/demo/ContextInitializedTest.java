@@ -1,4 +1,4 @@
-package com.runsidekick.todo;
+package com.runsidekick.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,12 +42,12 @@ public abstract class ContextInitializedTest {
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
             configurableApplicationContext.addApplicationListener((ApplicationListener<WebServerInitializedEvent>) event ->
-                    org.testcontainers.Testcontainers.exposeHostPorts(event.getWebServer().getPort())
+            org.testcontainers.Testcontainers.exposeHostPorts(event.getWebServer().getPort())
             );
             TestPropertyValues.of(
-                    "spring.datasource.url=" + MY_SQL_CONTAINER.getJdbcUrl(),
-                    "spring.datasource.username=" + MY_SQL_CONTAINER.getUsername(),
-                    "spring.datasource.password=" + MY_SQL_CONTAINER.getPassword()
+            "spring.datasource.url=" + MY_SQL_CONTAINER.getJdbcUrl(),
+            "spring.datasource.username=" + MY_SQL_CONTAINER.getUsername(),
+            "spring.datasource.password=" + MY_SQL_CONTAINER.getPassword()
             ).applyTo(configurableApplicationContext.getEnvironment());
         }
     }
@@ -61,27 +61,27 @@ public abstract class ContextInitializedTest {
     }
 
     protected <R> ResponseEntity<R> doRequest(HttpMethod httpMethod, String path,
-                                              String body, Class<R> responseType) {
+    String body, Class<R> responseType) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return doRequest(httpMethod, headers, path, body, responseType);
     }
 
     protected <R> ResponseEntity<R> doRequest(HttpMethod httpMethod, String path,
-                                              String body, ParameterizedTypeReference<R> parameterizedTypeReference) {
+    String body, ParameterizedTypeReference<R> parameterizedTypeReference) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return doRequest(httpMethod, headers, path, body, parameterizedTypeReference);
     }
 
     protected <R> ResponseEntity<R> doRequest(HttpMethod httpMethod, HttpHeaders headers,
-                                              String path, String body, Class<R> responseType) {
+    String path, String body, Class<R> responseType) {
         HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
         return testRestTemplate.exchange(createURLWithPort(path), httpMethod, requestEntity, responseType);
     }
 
     protected <R> ResponseEntity<R> doRequest(HttpMethod httpMethod, HttpHeaders headers,
-                                              String path, String body, ParameterizedTypeReference<R> responseType) {
+    String path, String body, ParameterizedTypeReference<R> responseType) {
         HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
         return testRestTemplate.exchange(createURLWithPort(path), httpMethod, requestEntity, responseType);
     }

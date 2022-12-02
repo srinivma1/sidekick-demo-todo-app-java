@@ -1,8 +1,8 @@
-package com.runsidekick.todo.service;
+package com.runsidekick.demo.service;
 
-import com.runsidekick.todo.entity.TodoEntity;
-import com.runsidekick.todo.model.Todo;
-import com.runsidekick.todo.repository.TodoRepository;
+import com.runsidekick.demo.entity.TodoEntity;
+import com.runsidekick.demo.model.Todo;
+import com.runsidekick.demo.repository.TodoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,12 +37,12 @@ class TodoServiceTest {
     @Test
     void testFindTodos() {
         List<TodoEntity> expected = Arrays.asList(new TodoEntity(1L, "Test-1", true),
-                new TodoEntity(2L, "Test-2", false), new TodoEntity(3L, "Test-3", true));
+        new TodoEntity(2L, "Test-2", false), new TodoEntity(3L, "Test-3", true));
         when(repository.findAll()).thenReturn(expected);
         List<Todo> actual = service.findTodos();
         assertThat(actual).usingRecursiveComparison()
-                .usingDefaultComparator()
-                .isEqualTo(expected);
+        .usingDefaultComparator()
+        .isEqualTo(expected);
     }
 
     @Test
@@ -56,7 +56,7 @@ class TodoServiceTest {
         });
         Todo actual = service.addTodo(expected);
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(1L, expected.getTitle(), expected.isCompleted());
+        .containsExactly(1L, expected.getTitle(), expected.isCompleted());
     }
 
     @Test
@@ -76,7 +76,7 @@ class TodoServiceTest {
         when(repository.save(any(TodoEntity.class))).thenAnswer((Answer<TodoEntity>) invocationOnMock -> invocationOnMock.getArgument(0, TodoEntity.class));
         Todo actual = service.updateTodo(1L, expected);
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(1L, expected.getTitle(), expected.isCompleted());
+        .containsExactly(1L, expected.getTitle(), expected.isCompleted());
     }
 
     @Test
@@ -96,6 +96,6 @@ class TodoServiceTest {
         });
         Todo actual = service.duplicateTodo(1L);
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(2L, expected.getTitle(), expected.isCompleted());
+        .containsExactly(2L, expected.getTitle(), expected.isCompleted());
     }
 }

@@ -1,6 +1,6 @@
-package com.runsidekick.todo.browserstack;
+package com.runsidekick.demo.browserstack;
 
-import com.runsidekick.todo.ContextInitializedTest;
+import com.runsidekick.demo.ContextInitializedTest;
 import com.browserstack.local.Local;
 
 import org.junit.jupiter.api.AfterEach;
@@ -81,7 +81,7 @@ public class BrowserStackInitializer extends ContextInitializedTest {
 
     protected void markTestResult(boolean isCompleted, String reason) {
         String url = String.format("https://%s:%s@api.browserstack.com/automate/sessions/%s.json",
-                userName, accessKey, this.browserDriver.getSessionId());
+        userName, accessKey, this.browserDriver.getSessionId());
 
         utils.sendCompleteRequest(url, isCompleted, reason);
     }

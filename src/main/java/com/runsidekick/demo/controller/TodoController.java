@@ -1,7 +1,9 @@
-package com.runsidekick.todo.controller;
+package com.runsidekick.demo.controller;
 
-import com.runsidekick.todo.model.Todo;
-import com.runsidekick.todo.service.TodoService;
+import com.runsidekick.demo.model.Todo;
+import com.runsidekick.demo.service.TodoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ import java.util.List;
 @RequestMapping("/todos")
 public class TodoController {
     private final TodoService service;
+    Logger log = LoggerFactory.getLogger(TodoController.class);
 
     public TodoController(TodoService service) {
         this.service = service;

@@ -1,8 +1,8 @@
-package com.runsidekick.todo.browserstack;
+package com.runsidekick.demo.browserstack;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.runsidekick.todo.entity.TodoEntity;
+import com.runsidekick.demo.entity.TodoEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 

@@ -1,9 +1,9 @@
-package com.runsidekick.todo.controller;
+package com.runsidekick.demo.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.runsidekick.todo.model.Todo;
-import com.runsidekick.todo.service.TodoService;
+import com.runsidekick.demo.model.Todo;
+import com.runsidekick.demo.service.TodoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.stubbing.Answer;
@@ -48,11 +48,11 @@ class TodoControllerTest {
     @Test
     void testFindTodos() throws Exception {
         List<Todo> expected = Arrays.asList(new Todo(1L, "Test-1", true),
-                new Todo(2L, "Test-2", false), new Todo(3L, "Test-3", true));
+        new Todo(2L, "Test-2", false), new Todo(3L, "Test-3", true));
         when(service.findTodos()).thenReturn(expected);
         MvcResult response = mockMvc.perform(get("/todos")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk()).andReturn();
         List<Todo> actual = objectMapper.readValue(response.getResponse().getContentAsString(), new TypeReference<List<Todo>>() {
         });
         assertThat(actual).usingFieldByFieldElementComparator().containsExactlyElementsOf(expected).hasSize(3);
@@ -61,9 +61,9 @@ class TodoControllerTest {
     @Test
     void testAddTodoWithInvalidRequest() throws Exception {
         mockMvc.perform(post("/todos")
-                .content(objectMapper.writeValueAsString(new Todo()))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        .content(objectMapper.writeValueAsString(new Todo()))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -76,20 +76,20 @@ class TodoControllerTest {
             return todo;
         });
         MvcResult response = mockMvc.perform(post("/todos")
-                .content(objectMapper.writeValueAsString(expected))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+        .content(objectMapper.writeValueAsString(expected))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk()).andReturn();
         Todo actual = objectMapper.readValue(response.getResponse().getContentAsString(), Todo.class);
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(1L, expected.getTitle(), expected.isCompleted());
+        .containsExactly(1L, expected.getTitle(), expected.isCompleted());
     }
 
     @Test
     void testUpdateTodoWithInvalidRequest() throws Exception {
         mockMvc.perform(put("/todos/{id}", 1L)
-                .content(objectMapper.writeValueAsString(new Todo()))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        .content(objectMapper.writeValueAsString(new Todo()))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -103,12 +103,12 @@ class TodoControllerTest {
             return todo;
         });
         MvcResult response = mockMvc.perform(put("/todos/{id}", 1L)
-                .content(objectMapper.writeValueAsString(expected))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+        .content(objectMapper.writeValueAsString(expected))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk()).andReturn();
         Todo actual = objectMapper.readValue(response.getResponse().getContentAsString(), Todo.class);
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(1L, expected.getTitle(), expected.isCompleted());
+        .containsExactly(1L, expected.getTitle(), expected.isCompleted());
     }
 
     @Test
@@ -117,9 +117,9 @@ class TodoControllerTest {
         expected.setTitle("Test-1");
         doNothing().when(service).deleteTodo(anyLong());
         mockMvc.perform(delete("/todos/{id}", 1L)
-                .content(objectMapper.writeValueAsString(expected))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent()).andReturn();
+        .content(objectMapper.writeValueAsString(expected))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNoContent()).andReturn();
     }
 
     @Test
@@ -130,9 +130,9 @@ class TodoControllerTest {
         expected.setCompleted(false);
         when(service.duplicateTodo(anyLong())).thenReturn(expected);
         MvcResult response = mockMvc.perform(post("/todos/{id}/duplicate", 1L)
-                .content(objectMapper.writeValueAsString(expected))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+        .content(objectMapper.writeValueAsString(expected))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk()).andReturn();
         Todo actual = objectMapper.readValue(response.getResponse().getContentAsString(), Todo.class);
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
@@ -141,7 +141,7 @@ class TodoControllerTest {
     void testClearCompletedTodo() throws Exception {
         doNothing().when(service).clearCompletedTodo();
         mockMvc.perform(post("/todos/clear-completed")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk()).andReturn();
     }
 }

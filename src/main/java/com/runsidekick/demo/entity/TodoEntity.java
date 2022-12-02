@@ -1,20 +1,27 @@
-package com.runsidekick.todo.model;
+package com.runsidekick.demo.entity;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author tolgatakir
  */
-public class Todo {
+@Entity
+@Table(name = "todo")
+public class TodoEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull(message = "Title cannot be null")
     private String title;
     private boolean completed;
 
-    public Todo() {
+    public TodoEntity() {
     }
 
-    public Todo(Long id, String title, boolean completed) {
+    public TodoEntity(Long id, String title, boolean completed) {
         this.id = id;
         this.title = title;
         this.completed = completed;

@@ -1,4 +1,4 @@
-package com.runsidekick.todo.browserstack;
+package com.runsidekick.demo.browserstack;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -78,7 +78,7 @@ public class BrowserStackTest extends BrowserStackInitializer {
 
         boolean hasTestTodo = !this.getTodoList("Test Todo").isEmpty();
         boolean hasAnyTodo = !this.browserDriver.findElementByClassName("todo-count")
-                .getText().equals("0 Tasks");
+        .getText().equals("0 Tasks");
 
         if (!hasAnyTodo || !hasTestTodo)
             failTest("Todo could not be added!");

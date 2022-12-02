@@ -1,6 +1,6 @@
-package com.runsidekick.todo.service;
+package com.runsidekick.demo.service;
 
-import com.runsidekick.todo.model.Todo;
+import com.runsidekick.demo.model.Todo;
 
 import java.util.List;
 

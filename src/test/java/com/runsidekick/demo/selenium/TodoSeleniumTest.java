@@ -1,6 +1,6 @@
-package com.runsidekick.todo.selenium;
+package com.runsidekick.demo.selenium;
 
-import com.runsidekick.todo.ContextInitializedTest;
+import com.runsidekick.demo.ContextInitializedTest;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -26,13 +26,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Testcontainers
 @SqlGroup({
-        @Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
 class TodoSeleniumTest extends ContextInitializedTest {
 
     @Container
     private final BrowserWebDriverContainer chrome = new BrowserWebDriverContainer()
-            .withCapabilities(new ChromeOptions());
+    .withCapabilities(new ChromeOptions());
 
     @Test
     void testOpenTodoPage() {
@@ -46,7 +46,7 @@ class TodoSeleniumTest extends ContextInitializedTest {
     @Test
     void testAddTodo() {
         RemoteWebDriver driver = chrome.getWebDriver();
-        WebDriverWait wait = new WebDriverWait(driver,30);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         driver.get("http://" + getHostAddress() + ":" + localPort);
         driver.getScreenshotAs(OutputType.BYTES);
         List<WebElement> elements = driver.findElementsByClassName("new-todo");
@@ -71,8 +71,8 @@ class TodoSeleniumTest extends ContextInitializedTest {
     private static String getHostAddress() {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.indexOf("nix") >= 0
-                || os.indexOf("nux") >= 0
-                || os.indexOf("aix") > 0) {
+        || os.indexOf("nux") >= 0
+        || os.indexOf("aix") > 0) {
             return "172.17.0.1";
         } else {
             return "host.docker.internal";

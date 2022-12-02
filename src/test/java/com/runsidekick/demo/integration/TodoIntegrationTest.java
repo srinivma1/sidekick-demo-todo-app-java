@@ -1,9 +1,9 @@
-package com.runsidekick.todo.integration;
+package com.runsidekick.demo.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dockerjava.zerodep.shaded.org.apache.hc.core5.net.URIBuilder;
-import com.runsidekick.todo.ContextInitializedTest;
-import com.runsidekick.todo.model.Todo;
+import com.runsidekick.demo.ContextInitializedTest;
+import com.runsidekick.demo.model.Todo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -25,8 +25,8 @@ import static org.assertj.core.api.Assertions.tuple;
  */
 
 @SqlGroup({
-        @Sql("/sql/test-data/todo.sql"),
-        @Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql("/sql/test-data/todo.sql"),
+@Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
 class TodoIntegrationTest extends ContextInitializedTest {
 
@@ -43,11 +43,11 @@ class TodoIntegrationTest extends ContextInitializedTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Todo> actual = response.getBody();
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(
-                        tuple(1L, "Test-1", true),
-                        tuple(2L, "Test-2", false),
-                        tuple(3L, "Test-3", true)
-                ).hasSize(3);
+        .containsExactly(
+        tuple(1L, "Test-1", true),
+        tuple(2L, "Test-2", false),
+        tuple(3L, "Test-3", true)
+        ).hasSize(3);
     }
 
     @Test
@@ -62,7 +62,7 @@ class TodoIntegrationTest extends ContextInitializedTest {
         assertThat(actual).isNotNull();
         assertThat(actual.getId()).isNotNull();
         assertThat(actual).extracting(Todo::getTitle, Todo::isCompleted)
-                .containsExactly(expected.getTitle(), expected.isCompleted());
+        .containsExactly(expected.getTitle(), expected.isCompleted());
     }
 
     @Test
@@ -72,12 +72,12 @@ class TodoIntegrationTest extends ContextInitializedTest {
         expected.setTitle("Test Update 1");
         expected.setCompleted(true);
         ResponseEntity<Todo> response = put(uri.toString(), mapper.writeValueAsString(expected),
-                Todo.class);
+        Todo.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Todo actual = response.getBody();
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted).containsExactly(2L,
-                expected.getTitle(), expected.isCompleted());
+        expected.getTitle(), expected.isCompleted());
     }
 
     @Test
@@ -89,17 +89,17 @@ class TodoIntegrationTest extends ContextInitializedTest {
 
         URI uriGetAllTodos = new URIBuilder("/todos").build();
         ResponseEntity<List<Todo>> responseGetAllTodos = get(uriGetAllTodos.toString(),
-                new ParameterizedTypeReference<List<Todo>>() {
-                });
+        new ParameterizedTypeReference<List<Todo>>() {
+        });
         assertThat(responseGetAllTodos).isNotNull();
         assertThat(responseGetAllTodos.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Todo> actual = responseGetAllTodos.getBody();
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(
-                        tuple(1L, "Test-1", true),
-                        tuple(2L, "Test-2", false)
-                )
-                .doesNotContain(tuple(3L, "Test-3", true));
+        .containsExactly(
+        tuple(1L, "Test-1", true),
+        tuple(2L, "Test-2", false)
+        )
+        .doesNotContain(tuple(3L, "Test-3", true));
     }
 
     @Test
@@ -123,15 +123,15 @@ class TodoIntegrationTest extends ContextInitializedTest {
 
         URI uriGetAllTodos = new URIBuilder("/todos").build();
         ResponseEntity<List<Todo>> responseGetAllTodos = get(uriGetAllTodos.toString(),
-                new ParameterizedTypeReference<List<Todo>>() {
-                });
+        new ParameterizedTypeReference<List<Todo>>() {
+        });
         assertThat(responseGetAllTodos).isNotNull();
         assertThat(responseGetAllTodos.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Todo> actual = responseGetAllTodos.getBody();
         assertThat(actual).extracting(Todo::getId, Todo::getTitle, Todo::isCompleted)
-                .containsExactly(
-                        tuple(2L, "Test-2", false)
-                ).hasSize(1);
+        .containsExactly(
+        tuple(2L, "Test-2", false)
+        ).hasSize(1);
     }
 
 }

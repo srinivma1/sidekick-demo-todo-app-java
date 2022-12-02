@@ -1,6 +1,6 @@
-package com.runsidekick.todo.repository;
+package com.runsidekick.demo.repository;
 
-import com.runsidekick.todo.entity.TodoEntity;
+import com.runsidekick.demo.entity.TodoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,8 +1,8 @@
-package com.runsidekick.todo.service;
+package com.runsidekick.demo.service;
 
-import com.runsidekick.todo.entity.TodoEntity;
-import com.runsidekick.todo.model.Todo;
-import com.runsidekick.todo.repository.TodoRepository;
+import com.runsidekick.demo.entity.TodoEntity;
+import com.runsidekick.demo.model.Todo;
+import com.runsidekick.demo.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;

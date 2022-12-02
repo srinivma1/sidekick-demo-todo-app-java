@@ -1,0 +1,7 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.runsidekick.todotodemo
+recipeList:
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: com.runsidekick.todo
+      newPackageName: com.runsidekick.demo

@@ -5,7 +5,7 @@ Sidekick is a remote debugger tool for Java, Spring Boot Application in a non-bl
 
  Install the Sidekick plugin in Intellij IDE from marketplce.
  
- For more refer to the below URL:
+ For more please refer to the below URL:
  
  ```
  https://docs.runsidekick.com/
